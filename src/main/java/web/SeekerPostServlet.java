@@ -38,6 +38,7 @@ public class SeekerPostServlet extends HttpServlet {
 		//seekerDAO = new JobSeekerDAO();
 	}
 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)

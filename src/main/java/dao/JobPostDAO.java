@@ -36,12 +36,13 @@ public class JobPostDAO {
 		em.getTransaction().commit();
 	}
 
-	
-	public void create(String companyId, String description,String[] skills){
+	public void create(String companyId, String description, String[] skills) {
 		em.getTransaction().begin();
-		Company company = em.find(Company.class,new Long(companyId));
+		Company company = em.find(Company.class, new Long(companyId));
 		JobPost post = new JobPost();
-		String idStr = em.createNativeQuery("select job_post_seq.nextval from dual").getSingleResult().toString();
+		String idStr = em
+				.createNativeQuery("select job_post_seq.nextval from dual")
+				.getSingleResult().toString();
 		post.setJobPostId(new Long(idStr));
 		post.setCompany(company);
 		post.setDescription(description);
@@ -69,7 +70,13 @@ public class JobPostDAO {
 		return em.createNativeQuery(
 				"select * from job_post where company_id=" + companyId,
 				JobPost.class).getResultList();
+//		String txtQuery = "select p from JobPost p where p.company.companyId=:companyId";
+//		TypedQuery<JobPost> query = em.createQuery(txtQuery, JobPost.class);
+//		query.setParameter("companyId", new Long(companyId));
+//		return query.getResultList();
 	}
+
+
 
 	@SuppressWarnings("unchecked")
 	public List<JobPost> findByUser(String UserId) {
