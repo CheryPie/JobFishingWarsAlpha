@@ -64,3 +64,4 @@ public class LoginUserDAO {
 		em.getTransaction().commit();
 	}
 }
+

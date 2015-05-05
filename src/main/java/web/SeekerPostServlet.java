@@ -35,8 +35,10 @@ public class SeekerPostServlet extends HttpServlet {
 		super();
 		postDAO = new JobPostDAO();
 		applyDAO = new JobSeekerPostDAO();
-	}
+
 		//seekerDAO = new JobSeekerDAO();
+	}	
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
