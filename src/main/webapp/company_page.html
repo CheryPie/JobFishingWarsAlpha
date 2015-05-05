@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		url : '/JOBWARSDEMO/LoginUserServlet',
+		type : "GET",
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			setLoginUserName(data);
+		}
+	});
+
+	function setLoginUserName(data) {
+		document.getElementById('loginUserName').innerHTML = data.name;
+		document.getElementById('companyId').value = data.companyId;
+		$
+				.ajax({
+					url : '/JOBWARSDEMO/CompanyPostServlet?companyId='
+							+ data.companyId,
+					type : "GET",
+					dataType : "json",
+					success : function(posts, textStatus, jqXHR) {
+						drawPosts(posts);
+					}
+				});
+		$.ajax({
+			url : '/JOBWARSDEMO/SkillSeekerServlet',
+			type : "GET",
+			dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				drawDropdown(data);
+			}
+		});
+
+	}
+
+	function drawPosts(posts) {
+		for (var i = 0; i < posts.length; i++) {
+			drawPost(posts[i]);
+		}
+	}
+
+	function drawPost(post) {
+		var row = $("<tr />")
+		$("#post_table").append(row);
+		row.append($("<td>" + post.description + "</td>"));
+		//  		row.append($("<td><form role=\"form\" action=\"SeekerPostServlet?seekerId="+ seekerId
+		// 						+ "\" method=\"post\"><input type=\"hidden\" name=\"postId\" value=\""+
+// 				post.jobPostId+"\"/><button type=\"submit\">Добави умение</button></form></td>"));
+	}
+
+	function drawDropdown(data) {
+		$.each(data, function(i, option) {
+			$('#sel').append(
+					$('<option/>').attr("value", option.skillId).text(
+							option.name));
+		});
+	}
+</script>
+<script type="text/javascript">
+		function addSkill(){
+			var row = $("<tr />")
+			$("#added_skills").append(row);
+			var dropDown =document.getElementById("sel");
+			var id = document.getElementById("sel").value;
+			var txt = dropDown.options[dropDown.selectedIndex].text;
+			row.append($("<td>"+txt+"</td>"));
+			row.append($("<td><input type=\"hidden\" name=\"skillsId\"/ value=\""+id+"\"></td>"));
+		}
+</script>
+</head>
+<body>
+	<div>
+		<h3 id="loginUserName"></h3>
+	</div>
+	<table>
+		<tr>
+			<td>
+				<h3>Suzdai obqva</h3>
+				<form role="form" action="CompanyPostServlet" method="post">
+					<input type="hidden" name="companyId" id="companyId" />
+					<div>
+					<label for="userName">Описание</label>
+					<input type="text" name="description" id="description"> 
+					<label for="dropdown">Умение</label>
+					<select id="sel" name="skillId"></select>
+					<input type="button" onclick="addSkill();" value="Добави умение"></input>
+					<table id="added_skills">
+					</table>
+					<button type="submit">Създай обява</button>
+					</div>
+				</form>
+			</td>
+			<td>
+				<h3>Obqvite mi</h3>
+				<table id="post_table">
+					<tr>
+						<th>Описание</th>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
