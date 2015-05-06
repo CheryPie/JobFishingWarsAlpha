@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Kompaniqta</title>
+    <meta charset="UTF-8">
+    <title>Register Company</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 </head>
 <body>
-	<h3>Kompaniqta</h3>
-	<form role="form" action="RegisterCompanyServlet" method="post">
-		<div>
-			<label for="userName">Име:</label> <input type="text"
-				class="form-control" name="username" id="userName">
-		</div>
-		<div>
-			<label for="pass">Парола</label> <input type="password"
-				class="form-control" name="password" id="pass">
-		</div>
-		<button type="submit">Запис</button>
-	</form>
+	<div class="container">
+        <div class="row">
+            <header class="col-xs-12">
+                <div class="banner">
+                    <a href="index.html"><h3>Job Fishing Wars</h3></a>
+                </div>
+                <div class="nav-wraper">
+                    <nav>
+                        <ul>
+                            <li><a href="login1.html">LogIn</a></li>
+                            <li><a href="register_job_seeker.html">RegisterSeeker</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </div>
+        <div class="row">
+            <div class="body">
+            	<a href="register_company.html">RegisterCompany</a>
+            	<h3>Kompaniqta</h3>
+				<form role="form" action="RegisterCompanyServlet" method="post">
+					<div>
+						<label for="userName">Име:</label> <input type="text"
+							class="form-control" name="username" id="userName">
+					</div>
+					<div>
+						<label for="pass">Парола</label> <input type="password"
+							class="form-control" name="password" id="pass">
+					</div>
+					<button type="submit">Запис</button>
+				</form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
