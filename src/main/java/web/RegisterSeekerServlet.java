@@ -28,19 +28,6 @@ public class RegisterSeekerServlet extends HttpServlet {
 		loginDAO = new LoginUserDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	private static final String USER_NAME = "username";
 	private static final String PASSWORD = "password";
 

@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -36,12 +34,4 @@ public class JobSeekerPostDAO {
 		em.getTransaction().commit();
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<JobSeekerPost> findApllied(String companyId) {
-		return em
-				.createNativeQuery(
-						"select * from job_seeker_post "
-								+ " where JOB_POST_ID in (select JOB_POST_ID from job_post where company_id="
-								+ companyId + ")").getResultList();
-	}
 }

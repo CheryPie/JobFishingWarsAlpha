@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import model.Skill;
 
@@ -20,24 +21,18 @@ public class SkillDAO {
 		em.getTransaction().commit();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Skill> findByJobSeeker(String jobSeekerId){
-		return em.createNativeQuery(" select * from skill where skill_id in "
-				+ "(select skill_id from job_seeker_skill_rel where "
-				+ "job_seeker_id="+jobSeekerId+")",Skill.class).getResultList();
+	public List<Skill> findByJobSeeker(Long jobSeekerId){
+		String txtQuery = "select s from Skill s where s.skillId in "
+				+ " ( select r.skill.skillId from JobSeekerSkillRel r where r.jobSeeker.jobSeekerId=:jobSeekerId)";
+		TypedQuery<Skill> query = em.createQuery(txtQuery, Skill.class);
+		query.setParameter("jobSeekerId", jobSeekerId);
+		return query.getResultList();
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	public List<Skill> findByJobPost(String jobPostId){
-		return em.createNativeQuery(" select * from skill where skill_id in "
-				+ "(select skill_id from job_post_skill where "
-				+ "job_post_id="+jobPostId+")",Skill.class).getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
 	public List<Skill> findAll(){
-		return em.createNativeQuery(" select * from skill" ,Skill.class).getResultList();
+		String txtQuery = "select s from Skill s";
+		TypedQuery<Skill> query = em.createQuery(txtQuery, Skill.class);
+		return query.getResultList();
 	}
 	
 	public Skill find(Long id){

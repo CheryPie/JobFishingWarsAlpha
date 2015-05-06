@@ -2,11 +2,15 @@ package dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import model.Company;
 import model.JobSeeker;
 import model.LoginUser;
 import model.LoginUserRole;
+
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 
 public class LoginUserDAO {
 
@@ -18,20 +22,26 @@ public class LoginUserDAO {
 	}
 
 	public LoginUser autenticate(String userName, String pass) {
+		// try {
+		// pass = Hashing.sha256().hashString(pass, Charsets.UTF_8).toString();
+		// return (LoginUser) em.createNativeQuery(
+		// "select * from login_user " + "where user_name='" + userName
+		// + "' and password='" + pass+"'", LoginUser.class)
+		// .getSingleResult();
+		// } catch (Exception e) {
+		// return null;
+		// }
 		try {
-			return (LoginUser) em.createNativeQuery(
-					"select * from login_user " + "where user_name='" + userName
-							+ "' and password='" + pass+"'", LoginUser.class)
-					.getSingleResult();
+			String txtQuery = "SELECT * from LOGIN_USER u where u.USER_NAME=?1 and u.password=?2";
+			Query query =  em.createNativeQuery(txtQuery, LoginUser.class);
+			query.setParameter(1, userName);
+			pass = Hashing.sha256().hashString(pass, Charsets.UTF_8).toString();
+			query.setParameter(2, pass);
+			return (LoginUser) query.getSingleResult();
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			return null;
 		}
-//        String txtQuery = "select u from LoginUser u where u.userName=:userName and u.password=:password";
-//        TypedQuery<LoginUser> query = em.createQuery(txtQuery, LoginUser.class);
-//        query.setParameter("userName", userName);
-//        //query.setParameter("password", getHashedPassword(pass));
-//        query.setParameter("password",pass);
-//        return query.getSingleResult();
 	}
 
 	public void createCompany(LoginUser user) {
@@ -42,7 +52,10 @@ public class LoginUserDAO {
 		Long idLong = new Long(idStr);
 		Company company = new Company();
 		company.setCompanyId(idLong);
-		user.setRole(em.find(LoginUserRole.class,new Long("2")));
+		String pass = user.getPassword();
+		pass = Hashing.sha256().hashString(pass, Charsets.UTF_8).toString();
+		user.setPassword(pass);
+		user.setRole(em.find(LoginUserRole.class, new Long("2")));
 		em.persist(company);
 		user.setCompany(company);
 		em.persist(user);
@@ -50,14 +63,17 @@ public class LoginUserDAO {
 	}
 
 	public void createJobSeeker(LoginUser user) {
+		em.getTransaction().begin();
 		String idStr = em
 				.createNativeQuery("select job_seeker_seq.nextval from dual")
 				.getSingleResult().toString();
 		Long idLong = new Long(idStr);
 		JobSeeker seeker = new JobSeeker();
 		seeker.setJobSeekerId(idLong);
-		em.getTransaction().begin();
-		user.setRole(em.find(LoginUserRole.class,new Long("1")));
+		String pass = user.getPassword();
+		pass = Hashing.sha256().hashString(pass, Charsets.UTF_8).toString();
+		user.setPassword(pass);
+		user.setRole(em.find(LoginUserRole.class, new Long("1")));
 		em.persist(seeker);
 		user.setJobSeeker(seeker);
 		em.persist(user);

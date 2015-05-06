@@ -17,30 +17,19 @@ import com.google.gson.GsonBuilder;
 import dao.JobSeekerSkillDAO;
 import dao.SkillDAO;
 
-/**
- * Servlet implementation class SkillSeekerServlet
- */
 @WebServlet("/SkillSeekerServlet")
 public class SkillSeekerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	//private JobSeekerDAO seekerDAO;
 	private SkillDAO skillDAO;
 	private JobSeekerSkillDAO relDAO;
 	
     public SkillSeekerServlet() {
         super();
-        //seekerDAO= new JobSeekerDAO();
         skillDAO = new SkillDAO();
         relDAO = new JobSeekerSkillDAO();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	private static final String SEEKER_ID="seekerId";
 	private static final String SKILL_ID="skillId";
 	
@@ -49,7 +38,7 @@ public class SkillSeekerServlet extends HttpServlet {
 		String seekerId = request.getParameter(SEEKER_ID);
 		List<Skill> skills =  null;
 		if(seekerId!=null){
-			 skills = skillDAO.findByJobSeeker(seekerId);
+			 skills = skillDAO.findByJobSeeker(new Long(seekerId));
 		}else{
 			 skills = skillDAO.findAll();
 		}
@@ -59,21 +48,11 @@ public class SkillSeekerServlet extends HttpServlet {
 		response.getWriter().flush();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String seekerId = request.getParameter(SEEKER_ID);
 		String skillId = request.getParameter(SKILL_ID);
 		if(seekerId!=null && skillId!=null){
-//			JobSeeker seeker = seekerDAO.find(new Long(seekerId));
-//			Skill skill = skillDAO.find(new Long(skillId));
-//			JobSeekerSkillRel rel = new JobSeekerSkillRel();
-//			rel.setSkill(skill);
-//			rel.setJobSeeker(seeker);
-//			relDAO.create(rel);
 			relDAO.create(new Long(seekerId), new Long(skillId));
 			 request.getRequestDispatcher("job_seeker_page.html").forward(request, response);
 		}

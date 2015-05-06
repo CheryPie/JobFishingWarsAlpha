@@ -67,10 +67,6 @@ public class LoginUserServlet extends HttpServlet {
 		response.getWriter().flush();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String userName = request.getParameter(USER_NAME);
@@ -82,6 +78,7 @@ public class LoginUserServlet extends HttpServlet {
 						&& user.getCompany().getCompanyId() != null) {
 					CURRENT_COMPANY_ID = user.getCompany().getCompanyId()
 							.toString();
+					CURRENT_JOBSEEKER_ID=null;
 					request.getRequestDispatcher("company_page.html").forward(
 							request, response);
 					return;
@@ -89,6 +86,7 @@ public class LoginUserServlet extends HttpServlet {
 						&& user.getJobSeeker().getJobSeekerId() != null) {
 					CURRENT_JOBSEEKER_ID = user.getJobSeeker().getJobSeekerId()
 							.toString();
+					CURRENT_COMPANY_ID=null;
 					request.getRequestDispatcher("job_seeker_page.html")
 							.forward(request, response);
 					return;

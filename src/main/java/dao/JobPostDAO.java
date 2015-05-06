@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import model.Company;
 import model.JobPost;
 import model.JobPostSkillRel;
 import model.Skill;
+
 
 public class JobPostDAO {
 
@@ -47,46 +49,31 @@ public class JobPostDAO {
 		post.setCompany(company);
 		post.setDescription(description);
 		em.persist(post);
-		//List<JobPostSkillRel> rels = new ArrayList<JobPostSkillRel>();
-		for (String skill : skills) {
-			//JobPostSkillRel rel = new JobPostSkillRel();
-			//Skill skillObj = em.find(Skill.class,new Long(skill));
-			//rel.setSkill(skillObj);
-			//rel.setJobPost(post);
-			//em.persist(rel);
-			//rels.add(rel);
-			em.createNativeQuery("Insert Into Job_Post_Skill_Rel(job_post_id,skill_id) values ("+idStr+","+skill+")").executeUpdate();
+		if(skills!=null){
+			for (String skill : skills) {
+				em.createNativeQuery("Insert Into Job_Post_Skill_Rel(job_post_id,skill_id) values ("+idStr+","+skill+")").executeUpdate();
+			}
 		}
-//		if(rels.size()!=0){
-//			em.persist(rels);
-//		}
-		//em.flush();
 		em.getTransaction().commit();
-		em.close();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<JobPost> findByCompany(String companyId) {
-		return em.createNativeQuery(
-				"select * from job_post where company_id=" + companyId,
-				JobPost.class).getResultList();
-//		String txtQuery = "select p from JobPost p where p.company.companyId=:companyId";
-//		TypedQuery<JobPost> query = em.createQuery(txtQuery, JobPost.class);
-//		query.setParameter("companyId", new Long(companyId));
-//		return query.getResultList();
+		String txtQuery = "select p from JobPost p where p.company.companyId=:companyId";
+		TypedQuery<JobPost> query = em.createQuery(txtQuery, JobPost.class);
+		query.setParameter("companyId", new Long(companyId));
+		return query.getResultList();
 	}
 
 
 
-	@SuppressWarnings("unchecked")
-	public List<JobPost> findByUser(String UserId) {
-		return em
-				.createNativeQuery(
-						"select * from job_post where Job_Post_Id  "
-								+ " in (select Distinct JOB_POST_ID from JOB_POST_SKILL_REL where SKILL_ID "
-								+ " in (select skill_id from job_seeker_skill_rel where Job_Seeker_Id="
-								+ UserId + ")) ", JobPost.class)
-				.getResultList();
+	public List<JobPost> findByUser(String jobSeekerId) {
+		String txtQuery = "select p from JobPost p where p.jobPostId in"
+				+ " (select distinct r.jobPost.jobPostId from JobPostSkillRel r "
+				+ " where r.skill.skillId in "
+				+ " (select s.skill.skillId from JobSeekerSkillRel s where s.jobSeeker.jobSeekerId=:jobSeekerId))";
+		TypedQuery<JobPost> query = em.createQuery(txtQuery, JobPost.class);
+		query.setParameter("jobSeekerId", new Long(jobSeekerId));
+		return query.getResultList();
 	}
 	
 	

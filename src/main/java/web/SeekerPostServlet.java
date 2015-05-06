@@ -29,15 +29,15 @@ public class SeekerPostServlet extends HttpServlet {
 	 */
 	private JobPostDAO postDAO;
 	private JobSeekerPostDAO applyDAO;
-	//private JobSeekerDAO seekerDAO;
+
+	// private JobSeekerDAO seekerDAO;
 
 	public SeekerPostServlet() {
 		super();
 		postDAO = new JobPostDAO();
 		applyDAO = new JobSeekerPostDAO();
-		//seekerDAO = new JobSeekerDAO();
+		// seekerDAO = new JobSeekerDAO();
 	}
-
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -69,13 +69,9 @@ public class SeekerPostServlet extends HttpServlet {
 		String seekerId = request.getParameter(SEEKER_ID);
 		String postId = request.getParameter(POST_ID);
 		if (seekerId != null && postId != null) {
-			// JobSeeker seeker = seekerDAO.find(new Long(seekerId));
-			// JobPost post = postDAO.find(new Long(postId));
-			// JobSeekerPost rel = new JobSeekerPost();
-			// rel.setJobPost(post);
-			// rel.setJobSeeker(seeker);
-			// applyDAO.apply(rel);
 			applyDAO.apply(new Long(seekerId), new Long(postId));
+			request.getRequestDispatcher("job_seeker_page.html").forward(
+					request, response);
 		}
 	}
 
