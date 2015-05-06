@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 </head>
 <body>
-	<form role="form" action="LoginUserServlet" method="post">
-		<div>
-			<label for="userName">Име:</label> <input type="text"
-				class="form-control" name="username" id="userName">
-		</div>
-		<div>
-			<label for="pass">Парола</label> <input type="password"
-				class="form-control" name="password" id="pass">
-		</div>
-		<button type="submit">Submit</button>
-	</form>
-	<div>Регистрация
-	<a href="register_company.html">Регистрирай компания</a>
-	<a href="register_job_seeker.html">Регистрирай търсещ работа</a>
-	</div>
+	<div class="container">
+        <div class="row">
+            <header class="col-xs-12">
+                <div class="banner">
+                    <a href="index.html"><h3>Job Fishing Wars</h3></a>
+                </div>
+                <div class="nav-wraper">
+                    <nav>
+                        <ul>
+                            <li><a href="register_company.html">RegisterCompany</a></li>
+                            <li><a href="register_job_seeker.html">RegisterSeeker</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </div>
+        <div class="row">
+            <div class="body">
+            	<a href="register_job_seeker.html">RegisterSeeker</a>
+            	<a href="index.html">Index</a>
+            	<form role="form" action="LoginUserServlet" method="post">
+					<div>
+						<label for="userName">Име:</label> <input type="text"
+							class="form-control" name="username" id="userName">
+					</div>
+					<div>
+						<label for="pass">Парола</label> <input type="password"
+							class="form-control" name="password" id="pass">
+					</div>
+					<button type="submit">Submit</button>
+				</form>
+				<div>Регистрация
+					<a href="register_company.html">Регистрирай компания</a>
+					<a href="register_job_seeker.html">Регистрирай търсещ работа</a>
+				</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
