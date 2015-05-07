@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Profile</title>
-<link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="styles/style.css"/>
-<link rel="stylesheet" type="text/css" href="styles/reset.css"/>
-<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Add Addvert</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript">
 	$.ajax({
 		url : '/JOBWARSDEMO/LoginUserServlet',
@@ -94,14 +94,26 @@
             </header>
     	</div>
 	<div class="row">
-            <div class="body">
-    			<h3>Obqvite mi</h3>
-				<table id="post_table" class="table">
-					<tr>
-						<th>Описание</th>
-					</tr>
-				</table>
-			</div>
+        <div class="body">
+             <form role="form" action="CompanyPostServlet" method="post" 
+                class="form-signin">
+                <div class="col-xs-12 account-wall">
+                	<h3 class="text-center login-title">Create Job Offer</h3>
+                    <div class="input-group">
+						<input type="hidden" name="companyId" id="companyId" />
+                        <input type="text"class="form-control" placeholder="Description"
+                            name="description" id="description">
+						<label for="dropdown">Skill:</label>
+						<select id="sel" name="skillId"></select>
+						<input type="button" onclick="addSkill();" value="Добави умение"></input>
+						<table class="table" id="added_skills">
+						</table>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">
+							Създай обява</button>
+               		</div>
+   				</div>
+            </form>
+		</div>
 	</div>
 </body>
 </html>

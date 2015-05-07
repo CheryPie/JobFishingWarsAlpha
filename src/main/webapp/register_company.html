@@ -27,18 +27,20 @@
         </div>
         <div class="row">
             <div class="body">
-            	<a href="register_company.html">RegisterCompany</a>
-            	<h3>Kompaniqta</h3>
-				<form role="form" action="RegisterCompanyServlet" method="post">
-					<div>
-						<label for="userName">Име:</label> <input type="text"
-							class="form-control" name="username" id="userName">
-					</div>
-					<div>
-						<label for="pass">Парола</label> <input type="password"
-							class="form-control" name="password" id="pass">
-					</div>
-					<button type="submit">Запис</button>
+				<form role="form" action="RegisterCompanyServlet" method="post" 
+                    class="form-signin">
+                    <div class="col-xs-12 account-wall">
+                        <h3 class="text-center login-title">Register Companny</h3>
+                        <div class="input-group">
+                            <input type="text"class="form-control" placeholder="Username"
+                                name="username" id="userName">
+                            <input type="password"class="form-control" placeholder="Password"
+                                name="password" id="pass">
+				           <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                Register
+                            </button>
+                       </div>
+                   </div>
 				</form>
             </div>
         </div>

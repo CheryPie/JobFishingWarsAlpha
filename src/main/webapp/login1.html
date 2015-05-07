@@ -27,23 +27,21 @@
         </div>
         <div class="row">
             <div class="body">
-            	<a href="register_job_seeker.html">RegisterSeeker</a>
-            	<a href="index.html">Index</a>
-            	<form role="form" action="LoginUserServlet" method="post">
-					<div>
-						<label for="userName">Име:</label> <input type="text"
-							class="form-control" name="username" id="userName">
-					</div>
-					<div>
-						<label for="pass">Парола</label> <input type="password"
-							class="form-control" name="password" id="pass">
-					</div>
-					<button type="submit">Submit</button>
-				</form>
-				<div>Регистрация
-					<a href="register_company.html">Регистрирай компания</a>
-					<a href="register_job_seeker.html">Регистрирай търсещ работа</a>
-				</div>
+                 <form role="form" action="LoginUserServlet" method="post" 
+                    class="form-signin">
+                    <div class="col-xs-12 account-wall">
+                        <h3 class="text-center login-title">Login</h3>
+                        <div class="input-group">
+                            <input type="text"class="form-control" placeholder="Username"
+                                name="username" id="userName">
+                            <input type="password"class="form-control" placeholder="Password"
+                                name="password" id="pass">
+                           <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                Login
+                            </button>
+                       </div>
+                   </div>
+                </form>
             </div>
         </div>
     </div>

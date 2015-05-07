@@ -28,6 +28,7 @@ public class LoginUser implements Serializable {
 
 	@Column(name = "PASSWORD")
 	private String password;
+	public static String SECURE_PASS = "!12@asg@!#";
 
 	@Column(name = "USER_NAME")
 	private String userName;

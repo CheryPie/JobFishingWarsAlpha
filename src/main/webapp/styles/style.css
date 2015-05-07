@@ -3,8 +3,7 @@
 }
 body{
     background-color:#E6E6E6;
-}
-/*Header#*/
+}/*Header#*/
 header{
 	background-color: #1093FF;
 }
@@ -62,6 +61,50 @@ h2{
 	overflow: hidden;
 	padding: 5px 5px 5px 5px;
 }
-#bordermeh{
-	border: 1px solid black;
+.body div h3{
+    color: #555;
+    font-size: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+.body div h4{
+    color: #555;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+/*Form.css*/
+.form-signin{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+.login-title
+{
+    color: #555;
+    font-size: 25px;
+    padding-bottom: 10px;
+    font-weight: 400;
+    display: block;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
