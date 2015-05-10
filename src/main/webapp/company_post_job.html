@@ -19,16 +19,6 @@
 	function setLoginUserName(data) {
 		document.getElementById('loginUserName').innerHTML = data.name;
 		document.getElementById('companyId').value = data.companyId;
-		$
-				.ajax({
-					url : '/JOBWARSDEMO/CompanyPostServlet?companyId='
-							+ data.companyId,
-					type : "GET",
-					dataType : "json",
-					success : function(posts, textStatus, jqXHR) {
-						drawPosts(posts);
-					}
-				});
 		$.ajax({
 			url : '/JOBWARSDEMO/SkillSeekerServlet',
 			type : "GET",
@@ -38,21 +28,6 @@
 			}
 		});
 
-	}
-
-	function drawPosts(posts) {
-		for (var i = 0; i < posts.length; i++) {
-			drawPost(posts[i]);
-		}
-	}
-
-	function drawPost(post) {
-		var row = $("<tr />")
-		$("#post_table").append(row);
-		row.append($("<td>" + post.description + "</td>"));
-		//  		row.append($("<td><form role=\"form\" action=\"SeekerPostServlet?seekerId="+ seekerId
-		// 						+ "\" method=\"post\"><input type=\"hidden\" name=\"postId\" value=\""+
-// 				post.jobPostId+"\"/><button type=\"submit\">Добави умение</button></form></td>"));
 	}
 
 	function drawDropdown(data) {

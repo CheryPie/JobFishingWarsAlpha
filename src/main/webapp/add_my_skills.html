@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AddMySkills</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="styles/style.css"/>
+<link rel="stylesheet" type="text/css" href="styles/reset.css"/>
+<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		url : '/JOBWARSDEMO/LoginUserServlet',
+		type : "GET",
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			setLoginUserName(data);
+		}
+	});
+
+	function setLoginUserName(data) {
+		document.getElementById('loginUserName').innerHTML = data.jobSeekerId;
+		document.getElementById('seekerId').value = data.jobSeekerId;
+		drawSkillsTable(data);
+		console.log(data);
+		$.ajax({
+			url : '/JOBWARSDEMO/SkillSeekerServlet',
+			type : "GET",
+			dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				drawDropdown(data);
+			}
+		});
+		$.ajax({
+			url : '/JOBWARSDEMO/SkillSeekerServlet?seekerId='
+					+ data.jobSeekerId,
+			type : "GET",
+			dataType : "json",
+			success : function(skills, textStatus, jqXHR) {
+				drawSkillsTable(skills);
+			}
+		});
+	};
+
+	function drawSkillsTable(skills) {
+		for (var i = 0; i < skills.length; i++) {
+			drawSkillRow(skills[i]);
+		}
+	};
+
+	function drawSkillRow(rowData) {
+		var row = $("<tr />")
+		$("#seeker_skills").append(row);
+		row.append($("<td>" + rowData.name + "</td>"));
+	};
+
+	function drawDropdown(data) {
+		$.each(data, function(i, option) {
+			$('#sel').append(
+					$('<option/>').attr("value", option.skillId).text(
+							option.name));
+		});
+	}
+
+</script>
+</head>
+<body>
+	<div class="container">
+        <div class="row">
+            <header class="col-xs-12">
+                <div class="banner">
+					<h3>Hello <span id="loginUserName"></span></h3>
+                </div>
+                <div class="nav-wraper">
+                    <nav>
+                        <ul>
+                        	<li><a href="job_seeker_page.html">Profile</a></li>
+                            <li><a href="add_my_skills.html">AddMySkills</a></li>
+                            <li><a href="index.html">LogOut</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </div>
+        <div class="row">
+            <div class="body">
+                 <form role="form" action="SkillSeekerServlet" method="post" 
+                    class="form-signin">
+                    <div class="col-xs-6 account-wall">
+                    	<h3 class="text-center login-title">Add Skill</h3>
+                        <div class="input-group">
+							<input type="hidden" name="seekerId" id="seekerId" />
+							<label for="dropdown">Skill: </label><select id="sel"
+								name="skillId">
+							</select>
+                           <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                Add Skill
+                            </button>
+                       </div>
+                   </div>
+                </form>
+             	<div class="col-xs-6">
+					<table id="seeker_skills" class="table">
+						<tr>
+							<th>Умение</th>
+						</tr>
+					</table>
+            	</div>
+            </div>
+        </div>
+</body>
+</html>
