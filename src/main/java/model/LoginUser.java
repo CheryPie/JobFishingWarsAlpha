@@ -8,12 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The persistent class for the LOGIN_USER database table.
  * 
  */
 @Entity
+@XmlRootElement
 @Table(name = "LOGIN_USER")
 public class LoginUser implements Serializable {
 	private static final long serialVersionUID = 1L;
