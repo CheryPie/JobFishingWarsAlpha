@@ -54,7 +54,7 @@ public class SkillSeekerServlet extends HttpServlet {
 		String skillId = request.getParameter(SKILL_ID);
 		if(seekerId!=null && skillId!=null){
 			relDAO.create(new Long(seekerId), new Long(skillId));
-			 request.getRequestDispatcher("job_seeker_page.html").forward(request, response);
+			 request.getRequestDispatcher("add_seeker_skills.html").forward(request, response);
 		}
 	}
 
