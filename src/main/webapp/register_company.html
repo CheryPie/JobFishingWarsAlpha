@@ -12,6 +12,10 @@
 	    var formUrl = $("#register_form").attr("action");
 	    var username = $("#userName")[0].value;
 	    var password = $("#pass")[0].value;
+	    
+	    if(!isDataValid(password, username)){
+	    	return;
+	    }
 	    	    
 	    var data = { loginUser : {
 		            userName : username,
@@ -27,14 +31,26 @@
 		})
 		.success(function(data) {
 		    $("#register_form").attr("action", "login1.html");
+		    console.log("success");
 		})
-		//.fail(function(data) {
-		  //  $("#register_form").attr("action", "register_job_seeker.html");
+		.fail(function(data) {
+		    $("#register_form").attr("action", "register_job_seeker.html");
+		    console.log("failure");
 
-		//})
+		})
 		.always(function() {
                     $("#register_form").submit();
         });
+	    
+    }
+	
+	function isDataValid(password, username) {
+
+        if (password == "" || username == "") {
+            alert("Please fill both fields for password and try again.");
+            return false;
+        }
+        return true;
     }
 	</script>
 </head>

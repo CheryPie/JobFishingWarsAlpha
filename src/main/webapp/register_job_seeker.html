@@ -7,6 +7,49 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
     <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+	function register() {
+	    var formUrl = $("#register_form").attr("action");
+	    var username = $("#userName")[0].value;
+	    var password = $("#pass")[0].value;
+	    
+	    if(!isDataValid(password, username)){
+	    	return;
+	    }
+	    	    
+	    var data = { loginUser : {
+		            userName : username,
+		            password : password,
+    			}
+	    }
+	    
+		$.ajax({
+		    url: 'rest/jobseeker/register',
+		    type: "POST",
+		    contentType: "application/json;charset=UTF-8",
+		    data: JSON.stringify(data)
+		})
+		.success(function(data) {
+		    $("#register_form").attr("action", "login1.html");
+		})
+		//.fail(function(data) {
+		  //  $("#register_form").attr("action", "register_job_seeker.html");
+
+		//})
+		.always(function() {
+                    $("#register_form").submit();
+        });
+    }
+	
+	function isDataValid(password, username) {
+
+        if (password == "" || username == "") {
+            alert("Please fill both fields for password and try again.");
+            return false;
+        }
+        return true;
+    }
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -27,16 +70,16 @@
         </div>
         <div class="row">
             <div class="body">
-                <form role="form" action="RegisterSeekerServlet" method="post" 
+               <form form id="register_form" role="form" method="post"
                     class="form-signin">
                     <div class="col-xs-12 account-wall">
-                        <h3 class="text-center login-title">Register Seeker</h3>
+                        <h3 class="text-center login-title">Register Job Seeker</h3>
                         <div class="input-group">
                             <input type="text"class="form-control" placeholder="Username"
                                 name="username" id="userName">
                             <input type="password"class="form-control" placeholder="Password"
                                 name="password" id="pass">
-                           <button class="btn btn-lg btn-primary btn-block" type="submit">
+                           <button onclick="register()" class="btn btn-lg btn-primary btn-block">
                                 Register
                             </button>
                        </div>
