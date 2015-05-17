@@ -28,6 +28,14 @@
 						drawPosts(posts);
 					}
 				});
+		$.ajax({
+			url : '/JOBWARSDEMO/SkillSeekerServlet',
+			type : "GET",	
+			dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				drawDropdown(data);
+			}
+		});
 
 	}
 
