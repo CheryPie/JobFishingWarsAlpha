@@ -68,26 +68,27 @@
                 </div>
             </header>
     	</div>
-	<div class="row">
-        <div class="body">
-             <form role="form" action="CompanyPostServlet" method="post" 
-                class="form-signin">
-                <div class="col-xs-12 account-wall">
-                	<h3 class="text-center login-title">Create Job Offer</h3>
-                    <div class="input-group">
-						<input type="hidden" name="companyId" id="companyId" />
-                        <input type="text"class="form-control" placeholder="Description"
-                            name="description" id="description">
-						<label for="dropdown">Skill:</label>
-						<select id="sel" name="skillId"></select>
-						<input type="button" onclick="addSkill();" value="Добави умение"></input>
-						<table class="table" id="added_skills">
-						</table>
-						<button class="btn btn-lg btn-primary btn-block" type="submit">
-							Създай обява</button>
-               		</div>
-   				</div>
-            </form>
+		<div class="row">
+	        <div class="body">
+	             <form role="form" action="CompanyPostServlet" method="post" 
+	                class="form-signin">
+	                <div class="col-xs-12 account-wall">
+	                	<h3 class="text-center login-title">Create Job Offer</h3>
+	                    <div class="input-group">
+							<input type="hidden" name="companyId" id="companyId" />
+	                        <input type="text"class="form-control" placeholder="Description"
+	                            name="description" id="description">
+							<label for="dropdown">Skill:</label>
+							<select id="sel" name="skillId"></select>
+							<input type="button" onclick="addSkill();" value="Добави умение"></input>
+							<table class="table" id="added_skills">
+							</table>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">
+								Създай обява</button>
+	               		</div>
+	   				</div>
+	            </form>
+			</div>
 		</div>
 	</div>
 </body>
